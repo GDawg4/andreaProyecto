@@ -2,15 +2,23 @@ package policies;
 
 import workshop.orders.PaintOrder;
 
-public class FirstComeFirstServed extends Policy {
+import java.util.concurrent.ConcurrentLinkedDeque;
 
+public class FirstComeFirstServed extends Policy {
+    public ConcurrentLinkedDeque<PaintOrder> mainQueue = new ConcurrentLinkedDeque<PaintOrder>();
     public void add(PaintOrder order) {
-        // TODO Auto-generated method stub
+        mainQueue.add(order);
 
     }
 
     public PaintOrder remove() {
-        // TODO Auto-generated method stub
+        PaintOrder currentOrder = mainQueue.peekFirst();
+        try {
+            Thread.sleep(currentOrder.getTotal()*(int)currentOrder.getTime());
+        }catch (Exception e){
+
+        }
+        mainQueue.remove(currentOrder);
         return null;
     }
 

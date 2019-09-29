@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class WorkshopScheduler{
     public static void main(String[] args) throws Exception{
-        Policy currentPolicy;
+        Policy currentPolicy = new RoundRobin();
         boolean isOk = false;
         String politica,rangostr = "";
         String[] range;
@@ -24,7 +24,7 @@ public class WorkshopScheduler{
         int orderNumber = 0;
 
         String[] test = new String[6];
-        test[0] = "-rr";
+        test[0] = "-fcfs";
         test[1] = "1.5-3";
         test[2] = "2";
         test[3] = "1";
@@ -120,7 +120,9 @@ public class WorkshopScheduler{
                 System.out.println(newOrder.toString());
                 orderNumber ++;
                 Thread.sleep(timeToWait);
+                currentPolicy.add(newOrder);
 
+                currentPolicy.remove();
 
             }
 
